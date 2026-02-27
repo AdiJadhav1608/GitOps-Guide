@@ -1,0 +1,57 @@
+# declarative-example.yaml
+# This file demonstrates declarative infrastructure in Kubernetes.
+# It defines the desired state of an application.
+# GitOps tools will monitor and ensure this state is maintained.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: declarative-demo-app
+  labels:
+    app: declarative-demo
+spec:
+  replicas: 3  # Desired number of pods
+  selector:
+    matchLabels:
+      app: declarative-demo
+  template:
+    metadata:
+      labels:
+        app: declarative-demo
+    spec:
+      containers:
+      - name: demo-container
+        image: nginx:1.25  # Desired container image version
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "100m"   # Minimum CPU required
+            memory: "128Mi"  # Minimum memory required
+          limits:
+            cpu: "200m"   # Maximum CPU allowed
+            memory: "256Mi"  # Maximum memory allowed
+
+---
+
+# Service definition to expose the application
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: declarative-demo-service
+spec:
+  selector:
+    app: declarative-demo
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP  # Internal service within cluster
+
+# Explanation:
+# - replicas: 3 ensures 3 pods always run.
+# - If one pod crashes, Kubernetes automatically recreates it.
+# - If someone manually scales it to 5,
+#   GitOps will revert it back to 3 (if 3 is defined in Git).
+# - This demonstrates declarative infrastructure + reconciliation.
