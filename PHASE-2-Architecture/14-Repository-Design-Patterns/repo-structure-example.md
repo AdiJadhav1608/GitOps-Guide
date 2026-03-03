@@ -23,6 +23,7 @@ gitops-repo/
 - `overlays/` → Environment-specific overrides  
 - `kustomization.yaml` → References base and adds environment-specific changes  
 
+This structure allows **safe environment isolation** while reusing common configurations.
 
 ---
 ```
