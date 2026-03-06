@@ -1,0 +1,7 @@
+# Kubernetes Namespace
+# A namespace is used to logically separate resources in a cluster
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gitops-demo
