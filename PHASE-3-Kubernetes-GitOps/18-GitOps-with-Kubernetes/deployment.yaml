@@ -1,0 +1,26 @@
+# Kubernetes Deployment
+# Deployment manages pods and ensures desired replicas are running
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: gitops-demo
+
+spec:
+  replicas: 2   # Number of pods running
+  selector:
+    matchLabels:
+      app: nginx
+
+  template:
+    metadata:
+      labels:
+        app: nginx
+
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:latest   # Application image
+        ports:
+        - containerPort: 80   # Container port
