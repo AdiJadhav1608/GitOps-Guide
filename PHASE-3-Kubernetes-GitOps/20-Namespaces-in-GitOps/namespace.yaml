@@ -1,0 +1,16 @@
+# Kubernetes Namespace Manifest
+# This file defines a namespace which will be created in the cluster
+# GitOps tools will read this file from Git and apply it automatically
+
+apiVersion: v1
+kind: Namespace
+
+metadata:
+  name: gitops-demo-namespace
+
+  labels:
+    environment: development
+    managed-by: gitops
+
+  annotations:
+    description: "Namespace used for GitOps demo applications"
