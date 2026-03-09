@@ -1,0 +1,136 @@
+# 🔐 ConfigMaps and Secrets in Kubernetes (GitOps)
+
+## 🧠 Introduction
+
+In Kubernetes, applications often require configuration data such as:
+
+- Environment variables
+- API endpoints
+- Database URLs
+- Credentials
+- API keys
+
+Kubernetes provides two resources to manage this data:
+
+- **ConfigMaps** → Store non-sensitive configuration data
+- **Secrets** → Store sensitive information securely
+
+In GitOps, these configurations are stored as **Kubernetes manifests in Git repositories**.
+
+---
+
+# 📦 What is a ConfigMap?
+
+A **ConfigMap** is used to store **non-sensitive configuration data** in key-value format.
+
+Examples of data stored in ConfigMaps:
+
+- Application configuration
+- Environment variables
+- Feature flags
+- Logging configuration
+
+ConfigMaps allow applications to be configured **without rebuilding container images**.
+
+---
+
+# ⚙️ Example Use Case of ConfigMap
+
+Example configuration:
+
+- Application environment
+- Application version
+- Logging level
+
+Applications read this configuration using:
+
+- Environment variables
+- Mounted configuration files
+
+---
+
+# 🔐 What is a Secret?
+
+A **Secret** is used to store **sensitive information** such as:
+
+- Passwords
+- API tokens
+- SSH keys
+- Database credentials
+
+Secrets are stored in **base64 encoded format** in Kubernetes.
+
+---
+
+# 🛡️ Why Secrets are Important
+
+Sensitive information should never be stored directly inside application code or container images.
+
+Secrets allow secure handling of:
+
+- Authentication credentials
+- Access tokens
+- Certificates
+
+---
+
+# ⚙️ GitOps Workflow with ConfigMaps and Secrets
+
+1️⃣ Developer updates configuration YAML file  
+2️⃣ Commit pushed to Git repository  
+3️⃣ GitOps tool detects change  
+4️⃣ Kubernetes cluster updates the configuration automatically  
+
+This ensures configuration changes are **tracked and version controlled**.
+
+---
+
+# 📂 Example GitOps Repository Structure
+
+```
+k8s-config/
+│
+├── configmap.yaml
+├── secret.yaml
+└── deployment.yaml
+```
+
+This structure separates application configuration from application logic.
+
+---
+
+# 🚀 Best Practices
+
+- Store **non-sensitive data in ConfigMaps**
+- Store **sensitive data in Secrets**
+- Never commit plain text passwords
+- Use secret management tools when possible
+- Restrict access using RBAC policies
+
+---
+
+# 📌 Summary
+
+ConfigMaps and Secrets allow applications to receive configuration dynamically.
+
+ConfigMaps → Non-sensitive configuration  
+Secrets → Sensitive credentials
+
+In GitOps, both are stored in Git and automatically applied to the Kubernetes cluster.
+
+---
+
+# 🤝 Contribute
+Add more commands, diagrams, or revision notes to help learners revise Docker faster.
+
+---
+
+# 👨‍💻 Author
+**Aditya Jadhav**  
+Beginner Cloud & DevOps Learner  
+
+📧 **adijadhav8446@gmail.com**  
+🌐 **GitHub Profile:** https://github.com/AdiJadhav1608  
+🔗 **LinkedIn:** https://www.linkedin.com/in/aditya-jadhav-718087339/  
+
+⭐ *If you found this helpful, give it a star and keep learning GitOps !*
