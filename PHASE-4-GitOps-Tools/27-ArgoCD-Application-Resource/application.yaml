@@ -1,0 +1,27 @@
+# ArgoCD Application Resource Example
+# This file tells ArgoCD how to deploy an application from Git to Kubernetes
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: nginx-app                     # Name of the application
+  namespace: argocd                  # Namespace where ArgoCD is installed
+
+spec:
+
+  project: default                   # ArgoCD project name
+
+  source:
+    repoURL: https://github.com/example/gitops-repo.git   # Git repository containing manifests
+    targetRevision: main                                  # Git branch to track
+    path: apps/nginx                                      # Folder containing Kubernetes manifests
+
+  destination:
+    server: https://kubernetes.default.svc                # Target Kubernetes cluster
+    namespace: nginx                                      # Namespace where app will be deployed
+
+  syncPolicy:
+    automated:                                            # Enables automatic synchronization
+      prune: true                                         # Removes resources deleted from Git
+      selfHeal: true                                      # Automatically fixes drift between cluster and Git
