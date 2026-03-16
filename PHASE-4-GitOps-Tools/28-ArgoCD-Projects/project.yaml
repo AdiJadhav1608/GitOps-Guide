@@ -1,0 +1,28 @@
+# ArgoCD Project Resource Example
+# This file defines rules and restrictions for applications deployed using ArgoCD
+
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+
+metadata:
+  name: demo-project              # Name of the project
+  namespace: argocd               # Namespace where ArgoCD is installed
+
+spec:
+
+  description: Example project for GitOps applications
+
+  sourceRepos:
+    - https://github.com/example/gitops-repo.git   # Allowed Git repository
+
+  destinations:
+    - namespace: default                           # Allowed namespace
+      server: https://kubernetes.default.svc       # Target Kubernetes cluster
+
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"                                    # Allow cluster resources
+
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"                                    # Allow namespace resources
