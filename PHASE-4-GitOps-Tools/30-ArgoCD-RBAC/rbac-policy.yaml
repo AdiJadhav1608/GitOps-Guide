@@ -1,0 +1,26 @@
+# ArgoCD RBAC Policy Example
+# This file defines roles and permissions for users in ArgoCD
+
+# Policy format:
+# p, role, resource, action, object, effect
+# g, user/group, role
+
+
+# Admin role (full access)
+p, role:admin, *, *, *, allow
+
+# Developer role (limited access)
+
+# p, role:developer, applications, get, *, allow 
+# p, role:developer, applications, sync, *, allow
+# p, role:developer, applications, create, *, allow
+# p, role:developer, applications, update, *, allow
+
+# Viewer role (read-only access)
+# p, role:viewer, applications, get, *, allow
+
+
+# Assign users/groups to roles
+# g, alice, role:admin
+# g, dev-team, role:developer
+# g, qa-team, role:viewer
