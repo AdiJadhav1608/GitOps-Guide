@@ -1,0 +1,48 @@
+# FluxCD Image Automation Example
+
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: my-app
+  namespace: default
+spec:
+  image: <your-dockerhub-username>/my-app
+  interval: 1m
+
+---
+
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: my-app-policy
+  namespace: default
+spec:
+  imageRepositoryRef:
+    name: my-app
+  policy:
+    semver:
+      range: ">=1.0.0"
+
+---
+
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: my-app-automation
+  namespace: default
+spec:
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: my-git-repo
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: bot@example.com
+        name: flux-bot
+      messageTemplate: "Update image to latest version"
+  update:
+    strategy: Setters
